@@ -1,0 +1,321 @@
+/* ─── Design tokens ──────────────────────────────────────────────────────── */
+:root {
+  --bg: #f2f2f7;
+  --surface: #ffffff;
+  --primary: #007aff;
+  --danger: #ff3b30;
+  --text: #1c1c1e;
+  --muted: #8e8e93;
+  --done: #aeaeb2;
+  --border: #e5e5ea;
+  --radius: 12px;
+  --shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 4px 20px rgba(0, 0, 0, 0.14);
+}
+
+/* ─── Reset ──────────────────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100dvh;
+  padding-bottom: 100px; /* room for FAB */
+}
+
+/* ─── Layout ─────────────────────────────────────────────────────────────── */
+.container {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 28px 16px;
+}
+
+.header {
+  margin-bottom: 20px;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+/* ─── Task list ──────────────────────────────────────────────────────────── */
+.task-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* ─── Task item ──────────────────────────────────────────────────────────── */
+.task-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 14px 12px;
+  box-shadow: var(--shadow);
+  transition:
+    box-shadow 0.15s,
+    opacity 0.15s,
+    transform 0.15s;
+  touch-action: none; /* required for pointer-event drag */
+}
+
+.task-item.dragging {
+  opacity: 0.55;
+  box-shadow: var(--shadow-lg);
+  transform: scale(1.02);
+}
+/* ─── Drag ghost (floating clone that follows the cursor) ────────────────── */
+.drag-ghost {
+  position: fixed;
+  pointer-events: none;
+  z-index: 1000;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 14px 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.22);
+  transform: scale(1.03) rotate(1.5deg);
+  opacity: 0.96;
+  transition: transform 0.05s;
+}
+
+/* ─── Original item while being dragged (invisible placeholder holder) ───── */
+.drag-source {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ─── Drop placeholder (shows where item will land) ─────────────────────── */
+.drag-placeholder {
+  border: 2px dashed var(--primary);
+  border-radius: var(--radius);
+  background: rgba(0, 122, 255, 0.07);
+  list-style: none;
+  transition: height 0.1s;
+}
+/* ─── Drag handle ────────────────────────────────────────────────────────── */
+.drag-handle {
+  cursor: grab;
+  color: var(--muted);
+  font-size: 1.25rem;
+  flex-shrink: 0;
+  padding: 0 2px;
+  user-select: none;
+  -webkit-user-select: none;
+  line-height: 1;
+}
+.drag-handle:active {
+  cursor: grabbing;
+}
+
+/* ─── Custom circular checkbox ───────────────────────────────────────────── */
+.checkbox {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  border: 2px solid var(--border);
+  border-radius: 50%;
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  position: relative;
+  transition:
+    background 0.15s,
+    border-color 0.15s;
+}
+.checkbox:checked {
+  background: var(--primary);
+  border-color: var(--primary);
+}
+.checkbox:checked::after {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 2px;
+  width: 7px;
+  height: 11px;
+  border: 2px solid #fff;
+  border-top: none;
+  border-left: none;
+  transform: rotate(45deg);
+}
+.checkbox:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* ─── Task text ──────────────────────────────────────────────────────────── */
+.task-text {
+  flex: 1;
+  font-size: 1rem;
+  line-height: 1.45;
+  word-break: break-word;
+  transition: color 0.15s;
+}
+.task-text--done {
+  text-decoration: line-through;
+  color: var(--done);
+}
+
+/* ─── Delete button ──────────────────────────────────────────────────────── */
+.delete-btn {
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 4px 6px;
+  border-radius: 6px;
+  line-height: 1;
+  transition:
+    color 0.15s,
+    background 0.15s;
+}
+.delete-btn:hover {
+  color: var(--danger);
+  background: #fff0ef;
+}
+
+/* ─── Empty state ────────────────────────────────────────────────────────── */
+.empty-msg {
+  text-align: center;
+  color: var(--muted);
+  padding: 52px 0;
+  font-size: 1rem;
+}
+
+/* ─── Floating action button ─────────────────────────────────────────────── */
+.fab {
+  position: fixed;
+  bottom: 28px;
+  right: 24px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: #fff;
+  font-size: 2rem;
+  line-height: 1;
+  border: none;
+  cursor: pointer;
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    transform 0.15s,
+    box-shadow 0.15s;
+  z-index: 100;
+}
+.fab:hover {
+  transform: scale(1.08);
+}
+.fab:active {
+  transform: scale(0.94);
+}
+
+/* ─── Modal overlay ──────────────────────────────────────────────────────── */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: flex-end; /* slides up from bottom on mobile */
+  justify-content: center;
+  padding: 16px;
+  z-index: 200;
+}
+.overlay[hidden] {
+  display: none;
+}
+@media (min-width: 480px) {
+  .overlay {
+    align-items: center;
+  }
+}
+
+.modal {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 24px;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: var(--shadow-lg);
+}
+
+.modal-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.modal-input {
+  width: 100%;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.15s;
+  margin-bottom: 16px;
+  font-family: inherit;
+}
+.modal-input:focus {
+  border-color: var(--primary);
+}
+
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.btn {
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: inherit;
+  transition: opacity 0.15s;
+}
+.btn:hover {
+  opacity: 0.82;
+}
+.btn--primary {
+  background: var(--primary);
+  color: #fff;
+}
+.btn--secondary {
+  background: var(--border);
+  color: var(--text);
+}
+
+/* ─── Responsive tweaks ──────────────────────────────────────────────────── */
+@media (max-width: 360px) {
+  .title {
+    font-size: 1.6rem;
+  }
+  .fab {
+    bottom: 20px;
+    right: 16px;
+  }
+}

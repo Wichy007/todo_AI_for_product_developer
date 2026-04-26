@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#007aff" />
+    <title>Todo List</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <h1 class="title">My Todo</h1>
+      </header>
+      <ul id="task-list" class="task-list" aria-label="Task list"></ul>
+      <p id="empty-msg" class="empty-msg" hidden>
+        ยังไม่มี task — กด + เพื่อเพิ่ม!
+      </p>
+    </div>
+
+    <!-- Floating action button -->
+    <button class="fab" id="add-btn" aria-label="Add task" title="Add task">
+      +
+    </button>
+
+    <!-- Add-task modal -->
+    <div
+      class="overlay"
+      id="overlay"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-title"
+      hidden
+    >
+      <div class="modal">
+        <h2 id="modal-title" class="modal-title">เพิ่ม Task</h2>
+        <input
+          type="text"
+          id="task-input"
+          class="modal-input"
+          placeholder="อยากทำอะไร?"
+          maxlength="200"
+          autocomplete="off"
+        />
+        <div class="modal-actions">
+          <button class="btn btn--secondary" id="cancel-btn">ยกเลิก</button>
+          <button class="btn btn--primary" id="confirm-btn">เพิ่ม</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="/app.js"></script>
+  </body>
+</html>
