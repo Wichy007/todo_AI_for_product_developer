@@ -3,7 +3,7 @@ package repository
 import (
 	"sync"
 
-	"hello/todo/internal/domain"
+	"todo/internal/domain"
 )
 
 // MemoryTaskRepository is a thread-safe, in-memory implementation of

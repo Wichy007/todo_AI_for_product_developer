@@ -3,8 +3,7 @@ package service
 import (
 	"crypto/rand"
 	"encoding/hex"
-
-	"hello/todo/internal/domain"
+	"todo/internal/domain"
 )
 
 // TaskService contains all business logic for managing tasks.

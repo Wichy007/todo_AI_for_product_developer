@@ -11,10 +11,9 @@ import (
 	"os/signal"
 	"syscall"
 	"time"
-
-	"hello/todo/internal/handler"
-	"hello/todo/internal/repository"
-	"hello/todo/internal/service"
+	"todo/internal/repository"
+	"todo/internal/service"
+	"todo/internal/handler"
 )
 
 //go:embed web/static

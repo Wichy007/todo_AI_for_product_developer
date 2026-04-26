@@ -8,9 +8,9 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"hello/todo/internal/handler"
-	"hello/todo/internal/repository"
-	"hello/todo/internal/service"
+	"todo/internal/handler"
+	"todo/internal/repository"
+	"todo/internal/service"
 )
 
 // newMux wires a fresh in-memory stack and returns a ready-to-use ServeMux.

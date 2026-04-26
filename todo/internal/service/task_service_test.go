@@ -3,9 +3,9 @@ package service_test
 import (
 	"testing"
 
-	"hello/todo/internal/domain"
-	"hello/todo/internal/repository"
-	"hello/todo/internal/service"
+	"todo/internal/domain"
+	"todo/internal/repository"
+	"todo/internal/service"
 )
 
 func newService() *service.TaskService {

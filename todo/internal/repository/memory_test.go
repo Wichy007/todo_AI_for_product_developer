@@ -3,8 +3,8 @@ package repository_test
 import (
 	"testing"
 
-	"hello/todo/internal/domain"
-	"hello/todo/internal/repository"
+	"todo/internal/domain"
+	"todo/internal/repository"
 )
 
 func newRepo() *repository.MemoryTaskRepository {

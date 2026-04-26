@@ -5,8 +5,8 @@ import (
 	"errors"
 	"net/http"
 
-	"hello/todo/internal/domain"
-	"hello/todo/internal/service"
+	"todo/internal/domain"
+	"todo/internal/service"
 )
 
 // TaskHandler maps HTTP requests to TaskService methods.
